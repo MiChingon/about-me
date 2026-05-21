@@ -6,7 +6,7 @@ const ICON = { mail: Mail, github: Github, linkedin: Linkedin };
 export function Contact() {
   return (
     <section id="contact" className="section">
-      <div className="card !p-10 sm:!p-14">
+      <div className="card !p-6 sm:!p-10 md:!p-14">
         <span className="section-eyebrow">
           <MessageCircle size={14} />
           Get in touch
@@ -26,22 +26,22 @@ export function Contact() {
                 href={s.href}
                 target={s.icon === 'mail' ? undefined : '_blank'}
                 rel="noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white px-5 py-4 transition hover:border-accent/40 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-accent/40 dark:hover:bg-white/10"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-4 transition hover:border-accent/40 hover:bg-slate-50 sm:px-5 dark:border-white/10 dark:bg-white/5 dark:hover:border-accent/40 dark:hover:bg-white/10"
               >
-                <span className="flex items-center gap-3">
-                  <Icon size={18} className="text-cyan-700 dark:text-accent" />
-                  <span>
+                <span className="flex min-w-0 items-center gap-3">
+                  <Icon size={18} className="shrink-0 text-cyan-700 dark:text-accent" />
+                  <span className="min-w-0">
                     <span className="block text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       {s.label}
                     </span>
-                    <span className="block text-sm font-medium text-slate-900 dark:text-white">
+                    <span className="block truncate text-sm font-medium text-slate-900 dark:text-white">
                       {s.handle}
                     </span>
                   </span>
                 </span>
                 <ArrowUpRight
                   size={16}
-                  className="text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan-700 dark:text-slate-400 dark:group-hover:text-accent"
+                  className="shrink-0 text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan-700 dark:text-slate-400 dark:group-hover:text-accent"
                 />
               </a>
             );

@@ -14,7 +14,7 @@ export function Hero() {
         <div className="absolute left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
       </div>
 
-      <div className="section pt-32 sm:pt-36">
+      <div className="section pt-20 sm:pt-32 md:pt-36">
         <div className="animate-fade-in-up">
           <span className="chip">
             <span className="relative flex h-2 w-2">
@@ -24,27 +24,27 @@ export function Hero() {
             Available for new projects
           </span>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl dark:text-white">
+          <h1 className="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white">
             Hi, I'm <span className="text-cyan-700 dark:text-accent">{profile.name}</span>.
             <br />
             <span className="text-slate-700 dark:text-slate-300">{profile.role}.</span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-400">
             {profile.intro}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-ink-950 transition hover:bg-accent-soft"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-ink-950 transition hover:bg-accent-soft"
             >
               Get in touch
               <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
             </a>
             <a
               href="#experience"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/10"
             >
               See my experience
             </a>
