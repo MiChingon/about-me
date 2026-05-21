@@ -13,7 +13,7 @@ export function About() {
           <h2 className="section-title">A pragmatic engineer who ships.</h2>
           <p className="section-subtitle">{profile.tagline}</p>
 
-          <div className="mt-8 space-y-4 text-slate-300">
+          <div className="mt-8 space-y-4 text-slate-700 dark:text-slate-300">
             {profile.about.map((p) => (
               <p key={p.slice(0, 30)}>{p}</p>
             ))}
@@ -21,8 +21,10 @@ export function About() {
         </div>
 
         <aside className="card">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Highlights</h3>
-          <ul className="mt-4 space-y-3 text-sm text-slate-300">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-cyan-700 dark:text-accent">
+            Highlights
+          </h3>
+          <ul className="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-300">
             {profile.highlights.map((h) => (
               <li key={h} className="flex gap-3">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />

@@ -26,20 +26,22 @@ export function Contact() {
                 href={s.href}
                 target={s.icon === 'mail' ? undefined : '_blank'}
                 rel="noreferrer"
-                className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-accent/40 hover:bg-white/10"
+                className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white px-5 py-4 transition hover:border-accent/40 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:hover:border-accent/40 dark:hover:bg-white/10"
               >
                 <span className="flex items-center gap-3">
-                  <Icon size={18} className="text-accent" />
+                  <Icon size={18} className="text-cyan-700 dark:text-accent" />
                   <span>
-                    <span className="block text-xs uppercase tracking-wider text-slate-400">
+                    <span className="block text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       {s.label}
                     </span>
-                    <span className="block text-sm font-medium text-white">{s.handle}</span>
+                    <span className="block text-sm font-medium text-slate-900 dark:text-white">
+                      {s.handle}
+                    </span>
                   </span>
                 </span>
                 <ArrowUpRight
                   size={16}
-                  className="text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                  className="text-slate-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-cyan-700 dark:text-slate-400 dark:group-hover:text-accent"
                 />
               </a>
             );

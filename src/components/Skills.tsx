@@ -16,7 +16,7 @@ export function Skills() {
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {profile.skillGroups.map((group) => (
           <div key={group.category} className="card">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-cyan-700 dark:text-accent">
               {group.category}
             </h3>
             <div className="mt-4 flex flex-wrap gap-2">

@@ -43,11 +43,11 @@ export type Profile = {
 };
 
 export const profile: Profile = {
-  name: 'Fabian Almaraz',
+  name: 'Fabian Almaraz Ruvalcaba',
   shortName: 'Fabian',
   role: 'Senior Software Engineer',
   location: 'Mexico',
-  email: 'fabian.almaraz@radixiot.com',
+  email: 'fabianalmaraz10@gmail.com',
   tagline: 'Building quality software with React, TypeScript and modern tooling.',
   intro:
     'Senior Software Engineer with almost a decade of experience shipping production software — from Android apps to modern React SPAs.',
@@ -167,8 +167,8 @@ export const profile: Profile = {
     },
   ],
   socials: [
-    { label: 'Email', href: 'mailto:fabian.almaraz@radixiot.com', handle: 'fabian.almaraz@radixiot.com', icon: 'mail' },
+    { label: 'Email', href: 'mailto:fabianalmaraz10@gmail.com', handle: 'fabianalmaraz10@gmail.com', icon: 'mail' },
     { label: 'GitHub', href: 'https://github.com/', handle: '@fabian-almaraz', icon: 'github' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/', handle: 'in/fabian-almaraz', icon: 'linkedin' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/fabian-almaraz-ruvalcaba-093527134/', handle: 'in/fabian-almaraz-ruvalcaba', icon: 'linkedin' },
   ],
 };
