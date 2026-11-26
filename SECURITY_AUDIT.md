@@ -24,11 +24,33 @@ Verified OK:
 - HTTP redirects to HTTPS.
 - Runtime dependencies (react, lucide-react) have no advisories.
 
+## Cloudflare (zone `fabianalmaraz.dev`)
+
+Configured in the Cloudflare dashboard on 2026-11-26. These settings are not stored in this repo.
+
+| Setting | Value | Where in the dashboard |
+|---|---|---|
+| DDoS protection | Always on (included in every plan) | — |
+| Managed WAF ruleset | Active | Security → WAF → Managed rules |
+| Bot Fight Mode | On | Security → Settings → Bot traffic |
+| SSL/TLS encryption mode | Full (strict) | SSL/TLS → Overview |
+| Rate limiting rule | `http.request.uri.path contains "/"`, counted per IP, 60 requests / 10 s → Block for 10 s | Security → WAF → Rate limiting rules |
+
+Verification on 2026-11-26:
+- A burst of 150 requests in about 10 s from one IP: 105 returned 200, then 45 returned `429 Too Many Requests` with `Retry-After`. The site answered 200 again 15 s later. Cloudflare's counting is approximate, so blocking starts somewhat above the configured 60.
+- HTML responses are `cf-cache-status: DYNAMIC` (not cached at the edge), so every request counts toward the limit.
+
+Notes:
+- Cloudflare injects two scripts into the page: JavaScript Detections (part of Bot Fight Mode) and the Web Analytics beacon. The `Caddyfile` CSP allows them through a per-request nonce and the `cloudflareinsights.com` hosts. If the CSP changes, keep those allowances, or bot detection stops working silently.
+- During an active attack, turn on **Under Attack Mode** (Security → Settings, or Overview → Quick Actions). Turn it off afterwards, because it adds a browser check to every visit.
+- If legitimate visitors are ever blocked, raise the rate limit threshold to 100.
+
 ## Pending / recommended
 
-1. **OpenRouter**: revoke the key used by the old chat (it is no longer needed), and delete
-   `OPENROUTER_API_KEY` from Railway Variables and from any local `.env`.
-2. **Cloudflare**: make sure the WAF managed rules and Bot Fight Mode are on. Consider a rate-limiting
-   rule. Cloudflare is the real protection against volumetric DDoS.
-3. Upgrade vite → 6/7 in a separate PR (breaking change, dev-only benefit).
-4. Optional: self-host Google Fonts to drop the last third-party origin in the CSP besides Cloudflare's.
+Done:
+- The OpenRouter key was revoked. `OPENROUTER_API_KEY` was never set in Railway, which only has its own `RAILWAY_*` variables.
+- All the Cloudflare settings above are in place.
+
+Open:
+1. Upgrade vite → 6/7 in a separate PR (breaking change, dev-only benefit).
+2. Optional: self-host Google Fonts to drop the last third-party origin in the CSP besides Cloudflare's.
