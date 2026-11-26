@@ -2,7 +2,6 @@
 # Railpack uses this file instead of its default template, copies it to /Caddyfile
 # and serves the Vite build from /app/dist. It mirrors Railpack's default
 # (port, health check, SPA fallback, hidden files) and adds security headers.
-# Keep the CSP in sync with server/security.ts (SECURITY_HEADERS).
 {
 	admin off
 	persist_config off
@@ -52,7 +51,7 @@
 		respond 200
 	}
 
-	# The chat API only exists in the local Vite server; nothing is served here.
+	# No API is served by this site; never fall back to index.html for /api/*.
 	handle /api/* {
 		respond 404
 	}
