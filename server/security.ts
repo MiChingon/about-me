@@ -120,11 +120,12 @@ export function isOriginAllowed(headers: HeaderBag): boolean {
 export const SECURITY_HEADERS: Record<string, string> = {
   'Content-Security-Policy': [
     "default-src 'self'",
-    "script-src 'self'",
+    // Production (Caddyfile) also allows Cloudflare's injected scripts via a per-request nonce.
+    "script-src 'self' https://static.cloudflareinsights.com",
     "style-src 'self' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https://cloudflareinsights.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
