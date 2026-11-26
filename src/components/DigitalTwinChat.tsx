@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Bot, Loader2, MessageCircle, RotateCcw, Send, X } from 'lucide-react';
 import { profile } from '../data/profile';
-import { useDigitalTwinChat } from '../hooks/useDigitalTwinChat';
+import { MAX_MESSAGE_CHARS, useDigitalTwinChat } from '../hooks/useDigitalTwinChat';
 
 const SUGGESTIONS = [
   'What is your React experience?',
@@ -173,6 +173,7 @@ export function DigitalTwinChat() {
                   }
                 }}
                 placeholder="Ask about my career…"
+                maxLength={MAX_MESSAGE_CHARS}
                 disabled={isLoading}
                 className="min-h-[44px] flex-1 resize-none rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none ring-accent/0 transition focus:border-accent/50 focus:ring-2 focus:ring-accent/20 disabled:opacity-60 dark:border-white/10 dark:bg-ink-800 dark:text-white"
               />

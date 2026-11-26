@@ -1,0 +1,62 @@
+# Production server config for Railway (Railpack, Node SPA mode).
+# Railpack uses this file instead of its default template, copies it to /Caddyfile
+# and serves the Vite build from /app/dist. It mirrors Railpack's default
+# (port, health check, SPA fallback, hidden files) and adds security headers.
+# Keep the CSP in sync with server/security.ts (SECURITY_HEADERS).
+{
+	admin off
+	persist_config off
+	auto_https off
+
+	log {
+		format json
+	}
+
+	servers {
+		# Trust Railway's edge proxy so client IPs in logs are real.
+		trusted_proxies static private_ranges 100.0.0.0/8
+	}
+}
+
+:{$PORT:80} {
+	log {
+		format json
+	}
+
+	header {
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		-Server
+		-X-Powered-By
+	}
+
+	# Hashed build assets can be cached forever; HTML must always revalidate.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+	@html path / /index.html
+	header @html Cache-Control "no-cache"
+
+	encode gzip zstd
+
+	handle /health {
+		respond 200
+	}
+
+	# The chat API only exists in the local Vite server; nothing is served here.
+	handle /api/* {
+		respond 404
+	}
+
+	handle {
+		root * /app/dist
+		try_files {path} {path}.html {path}/index.html /index.html
+		file_server {
+			hide .git .env*
+		}
+	}
+}
