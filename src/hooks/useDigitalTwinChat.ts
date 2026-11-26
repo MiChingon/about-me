@@ -13,9 +13,22 @@ type ChatState = {
   error: string | null;
 };
 
-/** Skip the local-only greeting; the server injects the system prompt. */
+/** Must match server/security.ts LIMITS. */
+export const MAX_MESSAGE_CHARS = 1000;
+const MAX_HISTORY_MESSAGES = 20;
+const MAX_TOTAL_CHARS = 8000;
+
+/**
+ * Skip the local-only greeting (the server injects the system prompt) and keep
+ * only the most recent turns so long conversations stay within server limits.
+ */
 function messagesForApi(messages: ChatMessage[]): ChatMessage[] {
-  return messages.slice(1);
+  const history = messages.slice(1).slice(-MAX_HISTORY_MESSAGES);
+  let total = history.reduce((n, m) => n + m.content.length, 0);
+  while (history.length > 1 && total > MAX_TOTAL_CHARS) {
+    total -= history.shift()!.content.length;
+  }
+  return history;
 }
 
 export function useDigitalTwinChat() {
@@ -27,7 +40,7 @@ export function useDigitalTwinChat() {
   const abortRef = useRef<AbortController | null>(null);
 
   const sendMessage = useCallback(async (text: string) => {
-    const trimmed = text.trim();
+    const trimmed = text.trim().slice(0, MAX_MESSAGE_CHARS);
     if (!trimmed) return;
 
     abortRef.current?.abort();
@@ -35,7 +48,7 @@ export function useDigitalTwinChat() {
     abortRef.current = controller;
 
     const userMessage: ChatMessage = { role: 'user', content: trimmed };
-    const apiMessages = [...messagesForApi(state.messages), userMessage];
+    const apiMessages = messagesForApi([...state.messages, userMessage]);
 
     setState((prev) => ({
       messages: [...prev.messages, userMessage],
